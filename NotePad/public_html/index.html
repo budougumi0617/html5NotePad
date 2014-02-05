@@ -17,11 +17,25 @@ and open the template in the editor.
         <p><input type="button" id="save" value="Save"> <input type="button" id="clear" value="Clear">
         </p>
         <script>
-            $(function (){
-                $("#save").click(function(){
-                   localStorage.setItem("memo", $("#memo").val());
-                   console.log(localStorage.getItem("memo"));
+            $(function() {
+                if (localStorage.getItem("memo")) {
+                    $("#memo").val(localStorage.getItem("memo"));
+                }
+                $("#clear").click(function() {
+                    $("#memo").val(" ");
+                    localStorage.removeItem("memo");
                 });
+
+
+                $("#save").click(function() {
+                    localStorage.setItem("memo", $("#memo").val());
+                    console.log(localStorage.getItem("memo"));
+                });
+                
+                (function autoSave (){
+                    localStorage.setItem("memo", $("#memo").val());
+                    setTimeout(autoSave, 1000);
+                })();
             });
         </script>
     </body>
