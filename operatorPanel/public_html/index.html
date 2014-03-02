@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja-JP">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="">
+        <title>DemoPanel</title>
+        <script src="./js/libs/jquery/jquery.js"></script>
+        <script src="./js/libs/jqueryui/jquery-ui.js"></script>
+        <link rel="stylesheet" href="./css/base/jquery-ui.css">
+        <link rel="stylesheet" href="./css/myStyle.css">
+    </head>
+    <body>
+        <header>
+            <h1 id="tile">Tub & OverRay Dialog</h1>
+        </header>
+        <div id="main">
+            <div id="tabs">
+                <nav>
+                    <ul>
+                        <li><a href="#tabs-1">タブ1</a></li>
+                        <li><a href="#tabs-2">タブ2</a></li>
+                        <li><a href="#tabs-3">タブ3</a></li>
+                    </ul>
+                </nav>
+                <div id="tabs-1">
+                    <p>デフォルトのタブです。</p>
+                    <div id="setting" class="panel">
+                        <h2>Panel 1</h2>
+                        <p id="width">width : <var class="value">0</var></p>
+                        <p id="height">height : <var class="value">10</var></p>
+                    </div>
+                    <div id="settingDialog" title="Setting Config">
+                        <form class="panel1form">
+                            <label>width:<input type="text" name="widthInput" id="widthInput" value=""/></label>
+                            <label>height:<input type="text" name="heightInput" id="heightInput" value=""/></label>
+                            <input type="button" id="change" name="change" value="change"/>
+                        </form>
+                    </div>
+                </div>
+                <div id="tabs-2">
+                    <p>タブ2のコンテンツ領域です。</p>
+                    <div id="panel">
+                        <p>ダイアログが開きます。</p>
+                    </div>
+                </div>
+                <div id="tabs-3">
+                    <p>タブ3のコンテンツ領域です。タブ2のコンテンツ領域です。</p>
+
+                </div>
+            </div>
+            <span id="text2">Hello</span>
+        </div>
+
+        <script>
+            $(function() {
+                $("#tabs").tabs({
+                    beforeActivate: function(event, ui) {
+                        $("#text2").text("Helo " + ui.newTab.index());
+                    }
+                });
+            });
+            $(function() {
+
+            });
+            $(function() {
+
+            });
+            $(function() {
+                $("#settingDialog").dialog({
+                    autoOpen: false,
+                    height: 300,
+                    width: 350,
+                    modal: true
+                });
+                $("#change").click(function() {
+                    var result = $("#widthInput").val();
+                    $("#width .value").text(result);
+                    result = $("#heightInput").val();
+                    $("#height .value").text(result);
+                    
+                    $("#settingDialog").dialog("close");
+                });
+                $("#setting").click(function() {
+                    $("#widthInput").val($("#width .value").text());
+                    $("#heightInput").val($("#height .value").text());
+                    $("#settingDialog").dialog("open");
+                });
+            });
+        </script>
+    </body>
+</html>
